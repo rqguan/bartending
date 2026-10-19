@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enzo Mixology - 酒鬼虾条摸底</title>
+    <style>
+        :root { --main: #1a1a1a; --gold: #d4af37; --bg: #f8f8f8; }
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--main); max-width: 650px; margin: 40px auto; padding: 20px; line-height: 1.6; }
+        h1 { border-left: 6px solid var(--gold); padding-left: 15px; font-size: 1.6rem; margin-bottom: 30px; }
+        .q-card { background: #fff; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .q-text { font-weight: 600; margin-bottom: 15px; display: block; font-size: 1.05rem; }
+        .slider-box { display: flex; align-items: center; gap: 15px; background: #fdfdfd; padding: 10px; border-radius: 8px; }
+        input[type=range] { flex: 1; accent-color: var(--gold); cursor: pointer; }
+        .val-num { width: 45px; font-weight: bold; color: var(--gold); text-align: center; font-size: 1.2rem; }
+        .btn-group { display: flex; gap: 12px; }
+        .yn-btn { flex: 1; padding: 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; border-radius: 6px; }
+        .yn-btn.active { background: var(--main); color: var(--gold); border-color: var(--main); font-weight: bold; }
+        #score-board { position: sticky; bottom: 20px; background: var(--main); color: white; padding: 25px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 15px 35px rgba(0,0,0,0.4); z-index: 100; }
+        .weight-tag { font-size: 11px; color: #aaa; margin-left: 10px; font-weight: normal; }
+    </style>
+    <meta name="description" content="Enzo Mixology 的调酒知识自评：10 道题，滑块与是非选择，实时加权百分制计分。">
+    <link rel="canonical" href="https://rqguan.github.io/bartending/cocktailtest/">
+    <link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+    <nav aria-label="返回导航"><a class="back-link" href="../">← Enzo Mixology · 返回主页</a></nav>
+    <main>
+
+    <h1>ENZO MIXOLOGY<br><small style="font-size: 0.9rem; color: #666; font-weight: normal;">酒鬼虾条摸底</small></h1>
+
+    <p class="quiz-intro">十道题，看看你的饮品知识从哪里开始。拖动滑块或选择答案，分数会实时更新。</p>
+    <div id="quiz"></div>
+    <noscript><p>此测验需要启用 JavaScript 才能显示题目并计算分数。</p></noscript>
+
+    <div id="score-board" role="status" aria-live="polite" aria-atomic="true">
+        <div style="font-size: 0.9rem; margin-bottom: 5px; color: #ccc;">百分制综合评价</div>
+        <div>
+            <span id="total" style="font-size: 3rem; color: var(--gold); font-weight: bold;">0</span>
+            <span style="font-size: 1.2rem; color: var(--gold);">%</span>
+        </div>
+    </div>
+
+    </main>
+    <script>
+        const questions = [
+            { t: "1. 六大基酒，你能说出几个?", min: 0, max: 6, w: 10, type: 'scale' },
+            { t: "2. 六大基酒各列出一杯经典鸡尾酒，你能列出几杯?", min: 0, max: 6, w: 10, type: 'scale' },
+            { t: "3. 是否知道味美思基酒的农作物来源?", min: 0, max: 1, w: 5, type: 'yn' },
+            { t: "4. 你能列举出几种澄清（Clarification）的方法?", min: 0, max: 5, w: 5, type: 'scale' },
+            { t: "5. 你能列出几种酿造葡萄酒的葡萄品种?", min: 0, max: 5, w: 5, type: 'scale' },
+            { t: "6. 你是否知道精米步合度是什么?", min: 0, max: 1, w: 3, type: 'yn' },
+            { t: "7. 你大致能说出多少种酒的品牌（商标名）?", min: 0, max: 10, w: 5, type: 'scale' },
+            { t: "8. 你能说出几种带气泡的酒的种类?（分类越细越好）", min: 0, max: 10, w: 5, type: 'scale' },
+            { t: "9. 你能说出几种杯型的名字?", min: 0, max: 5, w: 8, type: 'scale' },
+            { t: "10. 花/果/木/草/烟熏的风味，各列一种酒名（商标名），你能列出几个?", min: 0, max: 5, w: 5, type: 'scale' }
+        ];
+
+        // 理论最高加权总分 = 总权重和 * 10
+        const totalWeight = questions.reduce((sum, q) => sum + q.w, 0);
+        const maxScore = totalWeight * 10;
+        let state = questions.map(q => 0);
+
+        function render() {
+            const container = document.getElementById('quiz');
+            questions.forEach((q, i) => {
+                const card = document.createElement('div');
+                card.className = 'q-card';
+                let html = `<label class="q-text" id="question-${i}" ${q.type === 'scale' ? `for="answer-${i}"` : ''}>${q.t}<span class="weight-tag">Weight: ${q.w}</span></label>`;
+                
+                if (q.type === 'scale') {
+                    html += `
+                        <div class="slider-box">
+                            <span style="font-size: 12px; color:#999">${q.min}</span>
+                            <input id="answer-${i}" aria-labelledby="question-${i}" type="range" min="${q.min}" max="${q.max}" value="0" step="1" oninput="update(${i}, this.value)">
+                            <span style="font-size: 12px; color:#999">${q.max}</span>
+                            <div class="val-num" id="val-${i}">0</div>
+                        </div>`;
+                } else {
+                    html += `
+                        <div class="btn-group" role="group" aria-labelledby="question-${i}">
+                            <button type="button" aria-pressed="false" class="yn-btn" id="yn-${i}-1" onclick="update(${i}, 1)">知道 (10分)</button>
+                            <button type="button" aria-pressed="true" class="yn-btn active" id="yn-${i}-0" onclick="update(${i}, 0)">不知道 (0分)</button>
+                        </div>`;
+                }
+                card.innerHTML = html;
+                container.appendChild(card);
+            });
+        }
+
+        window.update = (index, val) => {
+            state[index] = parseFloat(val);
+            if (questions[index].type === 'scale') {
+                document.getElementById(`val-${index}`).innerText = val;
+            } else {
+                document.querySelectorAll(`#yn-${index}-1, #yn-${index}-0`).forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+                document.getElementById(`yn-${index}-${val}`).classList.add('active');
+                document.getElementById(`yn-${index}-${val}`).setAttribute('aria-pressed', 'true');
+            }
+            calculate();
+        };
+
+        function calculate() {
+            let weightedTotal = 0;
+            questions.forEach((q, i) => {
+                // 每道题先折算成10分满分制： (当前值 / 最大值) * 10
+                const scoreOutOfTen = (state[i] / q.max) * 10;
+                // 再乘以该题权重
+                weightedTotal += scoreOutOfTen * q.w;
+            });
+            // 换算百分制：(实际加权总分 / 理论加权总分) * 100
+            const percentage = Math.round((weightedTotal / maxScore) * 100);
+            document.getElementById('total').innerText = percentage;
+        }
+
+        render();
+    </script>
+</body>
+</html>
