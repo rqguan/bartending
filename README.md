@@ -46,3 +46,13 @@ Publish from `main` / `/ (root)` in repository **Settings → Pages → Build an
 After every update, wait for the Pages deployment and verify both URLs above: homepage navigation, mobile menu, practice disclosures, quiz sliders and yes/no controls, and the link back home. Maximum answers must yield 100%; minimum answers 0%. A successful commit alone does not confirm deployment.
 
 The original `rqguan/cocktailtest` repository is independent and must not be modified by this project.
+
+## Selected project photographs
+
+Midtown Live and Fruit Stand are documented with owner-supplied originals. The owner confirmed business coordination, beverage R&D, and bartending responsibilities for both. Midtown Live's date and drink names come from its supplied poster; Fruit Stand's seven-drink selection comes from its supplied menu. The event-counter image visibly carries a Fruit Stand label. No attendance, sponsorship, or performance claims are inferred.
+
+- `assets/midtown-live.jpg`: original batch 02, photo 01.
+- `assets/fruit-stand-menu.jpg`: original batch 02, photo 09 (identical to batch 03, photo 08).
+- `assets/fruit-stand-service.jpg`: original batch 03, photo 07.
+
+AI retouch experiments are held outside this public repository; they are not used as documentary photographs.
