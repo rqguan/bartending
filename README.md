@@ -35,7 +35,7 @@ The supplied BRAND_BRIEF.md and CODEX_TASK.md are the factual basis. Private sou
 
 Preserve: **Understanding is the Technique. Hospitality is the Purpose.** Do not imply employment at Hope & Sesame, invent degrees, employers, client names, drink recipes, or production responsibilities. Tepache's traditional sugar is **piloncillo**.
 
-Original orange/teal logo, Japan street portrait, kitchen photo, and Piña Colada thumbnail are pending from the owner. The current edition contains no portrait or portfolio photographs. The coupe motif is decorative CSS artwork; the typographic writing panel is an editorial graphic, not a photographed publication or original logo.
+The owner-supplied kitchen work photograph is included in About at `assets/kitchen-work.jpg`, with its complete original frame. It is a process photograph, not evidence of a specific recipe or client project. The Piña Colada thumbnail has been received and is awaiting its video URL. Other drink and process photographs are archived separately until their names and context are confirmed. The Japan street portrait and standalone original logo are still pending; the logo currently appears only within a supplied event poster. The coupe motif is decorative CSS artwork; the typographic writing panel is an editorial graphic, not a photographed publication or original logo.
 
 When originals arrive: save optimized copies in `assets/images/`, retain provenance and permission information privately, add accurate alt text and intrinsic dimensions, and visually check desktop/mobile crops. Do not substitute generated portraits or stock photographs as Enzo's work. A real portrait can replace `.hero-art`; the layout remains responsive. Only add a video link when its real destination is provided.
 
