@@ -4,6 +4,7 @@ Static personal website for Enzo, with the original Chinese cocktail self-assess
 
 - Home: https://rqguan.github.io/bartending/
 - Quiz: https://rqguan.github.io/bartending/cocktailtest/
+- Photo journal: https://rqguan.github.io/bartending/journal.html
 
 ## Local preview and tests
 
@@ -20,7 +21,8 @@ Preview deliberately uses `/bartending/` to catch broken project-site paths.
 ## Editing
 
 - `index.html`: English homepage, factual copy, navigation, practice entries, and contact links. Each section has a stable anchor. Chinese text is marked `lang="zh-CN"`.
-- `assets/site.css`: responsive layouts, colors, typography, and decorative CSS artwork.
+- `journal.html`: 32 unique owner-supplied images, grouped by project, drinks, process, and visual references.
+- `assets/site.css`: responsive layouts, colors, typography, and photographic presentation.
 - `assets/site.js`: progressive mobile menu enhancement; navigation works with JavaScript disabled.
 - `cocktailtest/index.html`: the original ten questions and weighted calculation, with a home link and accessible input labels and button state.
 - `assets/quiz.css`: visual integration and responsive quiz layout.
@@ -35,9 +37,11 @@ The supplied BRAND_BRIEF.md and CODEX_TASK.md are the factual basis. Private sou
 
 Preserve: **Understanding is the Technique. Hospitality is the Purpose.** Do not imply employment at Hope & Sesame, invent degrees, employers, client names, drink recipes, or production responsibilities. Tepache's traditional sugar is **piloncillo**.
 
-The owner-supplied kitchen work photograph is included in About at `assets/kitchen-work.jpg`, with its complete original frame. It is a process photograph, not evidence of a specific recipe or client project. The Piña Colada thumbnail has been received and is awaiting its video URL. Other drink and process photographs are archived separately until their names and context are confirmed. The Japan street portrait and standalone original logo are still pending; the logo currently appears only within a supplied event poster. The coupe motif is decorative CSS artwork; the typographic writing panel is an editorial graphic, not a photographed publication or original logo.
+The homepage uses the owner's original Fruit Stand work photograph, with additional photographs in the project, practice, research, and writing sections. The photo journal includes all 32 unique supplied images; the duplicate Fruit Stand menu appears once. Each image opens its full original frame. Display crops are CSS-only; the published image files preserve the supplied bytes.
 
-When originals arrive: save optimized copies in `assets/images/`, retain provenance and permission information privately, add accurate alt text and intrinsic dimensions, and visually check desktop/mobile crops. Do not substitute generated portraits or stock photographs as Enzo's work. A real portrait can replace `.hero-art`; the layout remains responsive. Only add a video link when its real destination is provided.
+Captions describe visible content without guessing unconfirmed drink names or recipes. Generated and unconfirmed visual references are explicitly identified in a separate section. The Lately poster is a generated design reference, not proof that an event took place. The Piña Colada cover has no invented video link. The Japan street portrait and standalone original logo are still pending.
+
+Retain provenance and permission information privately, add accurate alt text and intrinsic dimensions, and visually check desktop/mobile crops. Do not substitute generated portraits or stock photographs as Enzo's work. Only add a video link when its real destination is provided.
 
 ## GitHub Pages
 
@@ -56,3 +60,5 @@ Midtown Live and Fruit Stand are documented with owner-supplied originals. The o
 - `assets/fruit-stand-service.jpg`: original batch 03, photo 07.
 
 AI retouch experiments are held outside this public repository; they are not used as documentary photographs.
+
+The owner identified the latest Fruit Stand photographs as **As You Wish × WIP × Condesa**. The supplied menu and backdrop retain their original Teapulse branding. No additional partnership terms are inferred. Five original event photographs from batch 04 document conversation, preparation, shaking, and drinks.
