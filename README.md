@@ -21,7 +21,7 @@ Preview deliberately uses `/bartending/` to catch broken project-site paths.
 ## Editing
 
 - `index.html`: English homepage, factual copy, navigation, practice entries, and contact links. Each section has a stable anchor. Chinese text is marked `lang="zh-CN"`.
-- `journal.html`: 32 unique owner-supplied images, grouped by project, drinks, process, and visual references.
+- `journal.html`: 43 unique owner-supplied images, grouped by project, drinks, process, and visual references.
 - `assets/site.css`: responsive layouts, colors, typography, and photographic presentation.
 - `assets/site.js`: progressive mobile menu enhancement; navigation works with JavaScript disabled.
 - `cocktailtest/index.html`: the original ten questions and weighted calculation, with a home link and accessible input labels and button state.
@@ -37,9 +37,9 @@ The supplied BRAND_BRIEF.md and CODEX_TASK.md are the factual basis. Private sou
 
 Preserve: **Understanding is the Technique. Hospitality is the Purpose.** Do not imply employment at Hope & Sesame, invent degrees, employers, client names, drink recipes, or production responsibilities. Tepache's traditional sugar is **piloncillo**.
 
-The homepage uses the owner's original Fruit Stand work photograph, with additional photographs in the project, practice, research, and writing sections. The photo journal includes all 32 unique supplied images; the duplicate Fruit Stand menu appears once. Each image opens its full original frame. Display crops are CSS-only; the published image files preserve the supplied bytes.
+The homepage presents a photo-led layout with the original logo, three bar-work images in the opening mosaic, a four-image portrait sequence, and drink, research, and event contact sheets. The photo journal includes all 43 unique supplied images; the duplicate Fruit Stand menu appears once. Each image opens its full original frame. Original image files preserve the supplied bytes. Display crops are CSS-only. The two trial edits, `condesa-edited.png` and `bar-shaking-edited.png`, are retained as unused assets; the owner will handle subsequent retouching.
 
-Captions describe visible content without guessing unconfirmed drink names or recipes. Generated and unconfirmed visual references are explicitly identified in a separate section. The Lately poster is a generated design reference, not proof that an event took place. The Piña Colada cover has no invented video link. The Japan street portrait and standalone original logo are still pending.
+Captions describe visible content without guessing unconfirmed drink names or recipes. Generated and unconfirmed visual references are explicitly identified in a separate section. The Lately poster is a generated design reference, not proof that an event took place. The Piña Colada cover has no invented video link. The original logo, full-frame Japan street portrait, and additional bar-work photograph are now included.
 
 Retain provenance and permission information privately, add accurate alt text and intrinsic dimensions, and visually check desktop/mobile crops. Do not substitute generated portraits or stock photographs as Enzo's work. Only add a video link when its real destination is provided.
 
@@ -59,6 +59,6 @@ Midtown Live and Fruit Stand are documented with owner-supplied originals. The o
 - `assets/fruit-stand-menu.jpg`: original batch 02, photo 09 (identical to batch 03, photo 08).
 - `assets/fruit-stand-service.jpg`: original batch 03, photo 07.
 
-AI retouch experiments are held outside this public repository; they are not used as documentary photographs.
+Earlier retouch experiments are held outside this public repository. The website displays unmodified photographs, with CSS display crops only.
 
 The owner identified the latest Fruit Stand photographs as **As You Wish × WIP × Condesa**. The supplied menu and backdrop retain their original Teapulse branding. No additional partnership terms are inferred. Five original event photographs from batch 04 document conversation, preparation, shaking, and drinks.
