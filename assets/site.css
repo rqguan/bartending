@@ -7,3 +7,4 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
 
 .hero-copy{min-width:0}
+.working-photo{margin:48px 0 0}.working-photo img{display:block;width:100%;height:auto;aspect-ratio:16/9}.working-photo figcaption{display:flex;justify-content:space-between;gap:16px;margin-top:12px;color:var(--muted);font-size:11px}.working-photo figcaption span:first-child{text-transform:uppercase;letter-spacing:.12em}@media(max-width:720px){.working-photo{margin-top:32px}.working-photo figcaption{font-size:10px;flex-wrap:wrap;gap:6px}}
