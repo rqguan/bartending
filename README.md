@@ -24,7 +24,7 @@ Preview deliberately uses `/bartending/` to catch broken project-site paths.
 - `journal.html`: 43 unique owner-supplied images, grouped by project, drinks, process, and visual references.
 - `assets/site.css`: responsive layouts, colors, typography, and photographic presentation.
 - `assets/site.js`: progressive mobile menu enhancement; navigation works with JavaScript disabled.
-- `cocktailtest/index.html`: the original ten questions and weighted calculation, with a home link and accessible input labels and button state.
+- `cocktailtest/index.html`: the original ten questions and weighted calculation, with a home link and accessible input labels and button state. Chinese by default; a top-right toggle (or `?lang=en`) switches to English. English wording lives in `questionsEn`, so `questions` and the scoring stay identical to the original.
 - `assets/quiz.css`: visual integration and responsive quiz layout.
 - `tests/fixtures/cocktailtest-original.html`: unmodified source snapshot from `rqguan/cocktailtest`, retrieved 2026-10-18. Do not edit this baseline to make tests pass.
 - `tests/quiz.test.mjs`: comparison against original questions/scoring, 512 answer sets, and yes/no state checks.

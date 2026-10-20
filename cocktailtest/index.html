@@ -24,17 +24,17 @@
     <link rel="stylesheet" href="../assets/quiz.css">
 </head>
 <body>
-    <nav aria-label="返回导航"><a class="back-link" href="../">← Enzo Mixology · 返回主页</a></nav>
+    <nav aria-label="返回导航" id="top-nav" class="quiz-nav"><a class="back-link" href="../" id="back-link">← Enzo Mixology · 返回主页</a><button type="button" class="lang-toggle" id="lang-toggle" onclick="toggleLang()" aria-label="Switch to English" lang="en">EN</button></nav>
     <main>
 
-    <h1>ENZO MIXOLOGY<br><small style="font-size: 0.9rem; color: #666; font-weight: normal;">酒鬼虾条摸底</small></h1>
+    <h1>ENZO MIXOLOGY<br><small style="font-size: 0.9rem; color: #666; font-weight: normal;" id="subtitle">酒鬼虾条摸底</small></h1>
 
-    <p class="quiz-intro">十道题，看看你的饮品知识从哪里开始。拖动滑块或选择答案，分数会实时更新。</p>
+    <p class="quiz-intro" id="intro">十道题，看看你的饮品知识从哪里开始。拖动滑块或选择答案，分数会实时更新。</p>
     <div id="quiz"></div>
-    <noscript><p>此测验需要启用 JavaScript 才能显示题目并计算分数。</p></noscript>
+    <noscript><p>此测验需要启用 JavaScript 才能显示题目并计算分数。<span lang="en">This quiz needs JavaScript to show the questions and calculate your score.</span></p></noscript>
 
     <div id="score-board" role="status" aria-live="polite" aria-atomic="true">
-        <div style="font-size: 0.9rem; margin-bottom: 5px; color: #ccc;">百分制综合评价</div>
+        <div style="font-size: 0.9rem; margin-bottom: 5px; color: #ccc;" id="score-label">百分制综合评价</div>
         <div>
             <span id="total" style="font-size: 3rem; color: var(--gold); font-weight: bold;">0</span>
             <span style="font-size: 1.2rem; color: var(--gold);">%</span>
@@ -56,6 +56,36 @@
             { t: "10. 花/果/木/草/烟熏的风味，各列一种酒名（商标名），你能列出几个?", min: 0, max: 5, w: 5, type: 'scale' }
         ];
 
+        // English wording for each question, in the same order as `questions`; data and scoring stay in `questions`.
+        const questionsEn = [
+            "1. How many of the six base spirits can you name?",
+            "2. Name one classic cocktail for each of the six base spirits. How many can you list?",
+            "3. Do you know which crop vermouth's base wine comes from?",
+            "4. How many clarification methods can you name?",
+            "5. How many grape varieties used to make wine can you name?",
+            "6. Do you know what seimaibuai (rice polishing ratio) means?",
+            "7. Roughly how many alcohol brands (trademarks) can you name?",
+            "8. How many types of sparkling alcoholic drinks can you name? (The finer the categories, the better.)",
+            "9. How many glassware types can you name?",
+            "10. Name one bottle (brand name) each for floral, fruity, woody, herbal and smoky flavors. How many can you list?"
+        ];
+
+        const i18n = {
+            zh: { title: 'Enzo Mixology - 酒鬼虾条摸底', subtitle: '酒鬼虾条摸底', intro: '十道题，看看你的饮品知识从哪里开始。拖动滑块或选择答案，分数会实时更新。', back: '← Enzo Mixology · 返回主页', nav: '返回导航', score: '百分制综合评价', yes: '知道 (10分)', no: '不知道 (0分)', toggle: 'EN', toggleLabel: 'Switch to English', toggleLang: 'en', htmlLang: 'zh-CN' },
+            en: { title: 'Enzo Mixology - Cocktail Knowledge Check', subtitle: 'Cocktail Knowledge Check', intro: 'Ten questions to see where your drinks knowledge starts. Drag a slider or pick an answer; your score updates as you go.', back: '← Enzo Mixology · Back to home', nav: 'Back navigation', score: 'Overall score (out of 100)', yes: 'I know (10 pts)', no: "I don't know (0 pts)", toggle: '中文', toggleLabel: '切换到中文', toggleLang: 'zh-CN', htmlLang: 'en' }
+        };
+
+        function initialLang() {
+            try {
+                const fromUrl = new URLSearchParams(location.search).get('lang');
+                if (fromUrl === 'en' || fromUrl === 'zh') return fromUrl;
+                const saved = localStorage.getItem('cocktailtest-lang');
+                if (saved === 'en' || saved === 'zh') return saved;
+            } catch (e) {}
+            return 'zh';
+        }
+        let lang = initialLang();
+
         // 理论最高加权总分 = 总权重和 * 10
         const totalWeight = questions.reduce((sum, q) => sum + q.w, 0);
         const maxScore = totalWeight * 10;
@@ -63,24 +93,26 @@
 
         function render() {
             const container = document.getElementById('quiz');
+            const L = i18n[lang];
+            container.innerHTML = '';
             questions.forEach((q, i) => {
                 const card = document.createElement('div');
                 card.className = 'q-card';
-                let html = `<label class="q-text" id="question-${i}" ${q.type === 'scale' ? `for="answer-${i}"` : ''}>${q.t}<span class="weight-tag">Weight: ${q.w}</span></label>`;
+                let html = `<label class="q-text" id="question-${i}" ${q.type === 'scale' ? `for="answer-${i}"` : ''}>${lang === 'en' ? questionsEn[i] : q.t}<span class="weight-tag">Weight: ${q.w}</span></label>`;
                 
                 if (q.type === 'scale') {
                     html += `
                         <div class="slider-box">
                             <span style="font-size: 12px; color:#999">${q.min}</span>
-                            <input id="answer-${i}" aria-labelledby="question-${i}" type="range" min="${q.min}" max="${q.max}" value="0" step="1" oninput="update(${i}, this.value)">
+                            <input id="answer-${i}" aria-labelledby="question-${i}" type="range" min="${q.min}" max="${q.max}" value="${state[i]}" step="1" oninput="update(${i}, this.value)">
                             <span style="font-size: 12px; color:#999">${q.max}</span>
-                            <div class="val-num" id="val-${i}">0</div>
+                            <div class="val-num" id="val-${i}">${state[i]}</div>
                         </div>`;
                 } else {
                     html += `
                         <div class="btn-group" role="group" aria-labelledby="question-${i}">
-                            <button type="button" aria-pressed="false" class="yn-btn" id="yn-${i}-1" onclick="update(${i}, 1)">知道 (10分)</button>
-                            <button type="button" aria-pressed="true" class="yn-btn active" id="yn-${i}-0" onclick="update(${i}, 0)">不知道 (0分)</button>
+                            <button type="button" aria-pressed="${state[i] === 1}" class="yn-btn${state[i] === 1 ? ' active' : ''}" id="yn-${i}-1" onclick="update(${i}, 1)">${L.yes}</button>
+                            <button type="button" aria-pressed="${state[i] === 0}" class="yn-btn${state[i] === 0 ? ' active' : ''}" id="yn-${i}-0" onclick="update(${i}, 0)">${L.no}</button>
                         </div>`;
                 }
                 card.innerHTML = html;
@@ -113,7 +145,31 @@
             document.getElementById('total').innerText = percentage;
         }
 
-        render();
+        function applyLang() {
+            const L = i18n[lang];
+            if (document.documentElement) document.documentElement.lang = L.htmlLang;
+            document.title = L.title;
+            [['subtitle', L.subtitle], ['intro', L.intro], ['back-link', L.back], ['score-label', L.score], ['lang-toggle', L.toggle]]
+                .forEach(([id, text]) => { const el = document.getElementById(id); if (el) el.textContent = text; });
+            const nav = document.getElementById('top-nav');
+            if (nav) nav.setAttribute('aria-label', L.nav);
+            const btn = document.getElementById('lang-toggle');
+            if (btn) { btn.setAttribute('aria-label', L.toggleLabel); btn.setAttribute('lang', L.toggleLang); }
+            render();
+        }
+
+        window.toggleLang = () => {
+            lang = lang === 'zh' ? 'en' : 'zh';
+            try {
+                localStorage.setItem('cocktailtest-lang', lang);
+                const url = new URL(location.href);
+                if (lang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang');
+                history.replaceState(null, '', url);
+            } catch (e) {}
+            applyLang();
+        };
+
+        applyLang();
     </script>
 </body>
 </html>
