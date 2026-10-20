@@ -23,6 +23,7 @@ Preview deliberately uses `/bartending/` to catch broken project-site paths.
 - `index.html`: English homepage, factual copy, navigation, practice entries, and contact links. Each section has a stable anchor. Chinese text is marked `lang="zh-CN"`.
 - `journal.html`: 43 unique owner-supplied images, grouped by project, drinks, process, and visual references.
 - `assets/site.css`: responsive layouts, colors, typography, and photographic presentation.
+- `assets/i18n.js`: English/Chinese switch for `index.html` and `journal.html` (top-right button; English by default; `?lang=zh` opens Chinese). Chinese wording is a dictionary keyed by the exact English text, so when you change English copy, update its key in `ZH` too.
 - `assets/site.js`: progressive mobile menu enhancement; navigation works with JavaScript disabled.
 - `cocktailtest/index.html`: the original ten questions and weighted calculation, with a home link and accessible input labels and button state. Chinese by default; a top-right toggle (or `?lang=en`) switches to English. English wording lives in `questionsEn`, so `questions` and the scoring stay identical to the original.
 - `assets/quiz.css`: visual integration and responsive quiz layout.
