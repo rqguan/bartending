@@ -203,7 +203,7 @@
  "A Postmodern": "《后现代",
  "Guide to Mixology": "调酒指北》",
  "Enzo’s Chinese-language writing explores flavor, science, and sensory judgment. A place to examine the thinking behind a drink, alongside a growing collection of cocktail notes.": "Enzo 用中文记录对风味、科学与感官判断的探索。在一杯饮品之外，继续追问制作背后的逻辑，并将实践中的观察整理成不断积累的调酒笔记。",
- "Read the cocktail notebook": "阅读调酒笔记",
+ "Read A Postmodern Guide to Mixology": "阅读《后现代调酒指北》",
  "From the tutorial archive / Piña Colada": "教程档案｜Piña Colada",
  "A closer look at a familiar classic.": "重新理解一款熟悉的经典。",
  "View the cover & visual notes ↗": "查看封面与影像资料 ↗",
