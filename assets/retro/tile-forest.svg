@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <pattern id="weave" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="3" fill="#1d3824"/>
+      <rect width="3" height="1" fill="#24452d"/>
+      <rect width="1" height="3" fill="#162d1c"/>
+    </pattern>
+    <filter id="grain" x="0" y="0" width="60" height="60" filterUnits="userSpaceOnUse">
+      <feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" seed="11" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 .8  0 0 0 0 .9  0 0 0 0 .7  0 0 0 .08 0"/>
+    </filter>
+  </defs>
+  <rect width="60" height="60" fill="url(#weave)"/>
+  <rect width="60" height="60" filter="url(#grain)"/>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <filter id="grain" x="0" y="0" width="120" height="120" filterUnits="userSpaceOnUse">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0"/>
+    </filter>
+    <g id="wheel" fill="none">
+      <circle r="17" stroke-width="2.2"/>
+      <circle r="12.5" stroke-width="1.4"/>
+      <path d="M0-12.5V12.5M-12.5 0H12.5M-8.8-8.8 8.8 8.8M-8.8 8.8 8.8-8.8" stroke-width="1.4"/>
+      <circle r="2" fill="currentColor" stroke="none"/>
+    </g>
+    <path id="leaf" d="M0 0C5-7 15-8 22 0C15 8 5 7 0 0Z" stroke="none"/>
+    <g id="motif">
+      <use xlink:href="#wheel"/>
+      <use xlink:href="#leaf" transform="rotate(45) translate(19 0)"/>
+      <use xlink:href="#leaf" transform="rotate(135) translate(19 0)"/>
+      <use xlink:href="#leaf" transform="rotate(225) translate(19 0)"/>
+      <use xlink:href="#leaf" transform="rotate(315) translate(19 0)"/>
+    </g>
+    <g id="sprig">
+      <path d="M-11 2C-7-7 7-7 11 2" fill="none" stroke-width="1.6"/>
+      <circle cx="-11" cy="3" r="2.2" stroke="none"/>
+      <circle cx="11" cy="3" r="2.2" stroke="none"/>
+      <circle cx="0" cy="-4.5" r="1.6" stroke="none"/>
+    </g>
+    <g id="all">
+      <use xlink:href="#motif" x="60" y="60"/>
+      <use xlink:href="#motif" x="0" y="0"/>
+      <use xlink:href="#motif" x="120" y="0"/>
+      <use xlink:href="#motif" x="0" y="120"/>
+      <use xlink:href="#motif" x="120" y="120"/>
+      <use xlink:href="#sprig" x="60" y="0"/>
+      <use xlink:href="#sprig" x="60" y="120"/>
+      <use xlink:href="#sprig" transform="translate(0 60) rotate(90)"/>
+      <use xlink:href="#sprig" transform="translate(120 60) rotate(90)"/>
+    </g>
+  </defs>
+  <rect width="120" height="120" fill="#42604b"/>
+  <use xlink:href="#all" transform="translate(1 1.2)" stroke="#324d3b" fill="#324d3b" color="#324d3b"/>
+  <use xlink:href="#all" stroke="#5c8064" fill="#56795d" color="#56795d"/>
+  <rect width="120" height="120" filter="url(#grain)"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 220 220">
+  <defs>
+    <filter id="fibre" x="0" y="0" width="220" height="220" filterUnits="userSpaceOnUse">
+      <feTurbulence type="fractalNoise" baseFrequency=".01 .22" numOctaves="3" seed="4" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 .97  0 0 0 0 .9  .9 0 0 0 -.42"/>
+    </filter>
+    <filter id="speck" x="0" y="0" width="220" height="220" filterUnits="userSpaceOnUse">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="9" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .18  0 0 0 .12 0"/>
+    </filter>
+  </defs>
+  <rect width="220" height="220" fill="#d6ccb2"/>
+  <rect width="220" height="220" filter="url(#fibre)"/>
+  <rect width="220" height="220" filter="url(#speck)"/>
+</svg>

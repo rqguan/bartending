@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <filter id="grain" x="0" y="0" width="100" height="100" filterUnits="userSpaceOnUse">
+      <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="5" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 .1  0 0 0 0 .3  0 0 0 0 .3  0 0 0 .06 0"/>
+    </filter>
+    <g id="slice">
+      <circle r="9.5" fill="#f3c17c" stroke="#e39b52" stroke-width="1.6"/>
+      <circle r="6.6" fill="#f8d79e"/>
+      <path d="M0-6.6V6.6M-6.6 0H6.6M-4.7-4.7 4.7 4.7M-4.7 4.7 4.7-4.7" stroke="#fdf0d4" stroke-width="1.1"/>
+    </g>
+  </defs>
+  <rect width="100" height="100" fill="#bfe1da"/>
+  <path d="M0 25q12.5-7 25 0t25 0 25 0 25 0M0 75q12.5-7 25 0t25 0 25 0 25 0" fill="none" stroke="#a7d2ca" stroke-width="3"/>
+  <path d="M0 31q12.5-7 25 0t25 0 25 0 25 0M0 81q12.5-7 25 0t25 0 25 0 25 0" fill="none" stroke="#b3d9d2" stroke-width="1.5"/>
+  <g opacity=".75">
+    <use xlink:href="#slice" x="75" y="50"/>
+    <use xlink:href="#slice" x="25" y="0"/>
+    <use xlink:href="#slice" x="25" y="100"/>
+  </g>
+  <rect width="100" height="100" filter="url(#grain)"/>
+</svg>
