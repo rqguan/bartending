@@ -79,6 +79,8 @@
             try {
                 const fromUrl = new URLSearchParams(location.search).get('lang');
                 if (fromUrl === 'en' || fromUrl === 'zh') return fromUrl;
+                const site = localStorage.getItem('site-lang');
+                if (site === 'en' || site === 'zh') return site;
                 const saved = localStorage.getItem('cocktailtest-lang');
                 if (saved === 'en' || saved === 'zh') return saved;
             } catch (e) {}
@@ -155,6 +157,10 @@
             if (nav) nav.setAttribute('aria-label', L.nav);
             const btn = document.getElementById('lang-toggle');
             if (btn) { btn.setAttribute('aria-label', L.toggleLabel); btn.setAttribute('lang', L.toggleLang); }
+            // Share the language with the rest of the site, and keep it when going back to the homepage.
+            try { localStorage.setItem('site-lang', lang); localStorage.setItem('cocktailtest-lang', lang); } catch (e) {}
+            const back = document.getElementById('back-link');
+            if (back) back.setAttribute('href', lang === 'zh' ? '../?lang=zh' : '../');
             render();
         }
 

@@ -409,13 +409,37 @@
  "Close": "关闭",
  "Rooms, first half": "栏目（左）",
  "Rooms, second half": "栏目（右）",
- "Link buttons": "链接按钮"
+ "Link buttons": "链接按钮",
+ // Separate room pages (2026-10-23)
+ "← Back to the lobby": "← 返回首页",
+ "You are here:": "您的位置：",
+ "Lobby": "首页",
+ "Back to the lobby": "返回首页",
+ "‹ Previous": "‹ 上一页",
+ "Next ›": "下一页 ›",
+ "Breadcrumb": "当前位置",
+ "More rooms": "更多栏目",
+ "About Enzo — Enzo Mixology": "关于 Enzo — Enzo Mixology",
+ "Hospitality — Enzo Mixology": "待客之道 — Enzo Mixology",
+ "Drink themes — Enzo Mixology": "创作酒单 — Enzo Mixology",
+ "Fermentation lab — Enzo Mixology": "发酵研究室 — Enzo Mixology",
+ "Collaborations — Enzo Mixology": "合作项目 — Enzo Mixology",
+ "Writing — Enzo Mixology": "调酒笔记 — Enzo Mixology",
+ "Guestbook — Enzo Mixology": "留言本 — Enzo Mixology",
+ "About Enzo: a New York-based mixologist, beverage researcher, and hospitality consultant, with photographs from behind the bar and beyond.": "关于 Enzo：以纽约为主要工作基地的调酒师、饮品研究者与酒吧顾问，附吧台内外的照片。",
+ "Enzo’s approach to hospitality: complexity in understanding, simplicity in execution.": "Enzo 的待客之道：理解求深，执行求简。",
+ "Selected drink themes by Enzo, from perfume and regional food to tea and abstract flavor studies, with past menus and recipe notes.": "Enzo 的创作酒单：从香水、地方风味到茶与抽象风味研究，附历届酒单与配方笔记。",
+ "Enzo’s fermentation research: tepache, kvass, and the path from research to service.": "Enzo 的发酵研究：tepache、kvass，以及从研发到出品的过程。",
+ "Bar consulting in Shenzhen and cocktail collaborations in New York, including Midtown Live and Fruit Stand.": "深圳独立酒吧顾问服务与纽约的饮品合作项目，包括 Midtown Live 与 Fruit Stand。",
+ "A Postmodern Guide to Mixology, Enzo’s Chinese-language writing on flavor, science, and sensory judgment, plus a cocktail knowledge quiz.": "《后现代调酒指北》：Enzo 关于风味、科学与感官判断的中文写作，以及调酒知识小测。",
+ "Get in touch with Enzo about bar consulting, beverage research, and creative collaborations.": "与 Enzo 联系，交流酒吧顾问服务、饮品研发与创意合作。"
 };
   const norm = s => s.replace(/\s+/g, ' ').trim();
   const store = { get() { try { return localStorage.getItem('site-lang'); } catch (e) { return null; } },
                   set(v) { try { localStorage.setItem('site-lang', v); } catch (e) {} } };
   const fromUrl = new URLSearchParams(location.search).get('lang');
   let lang = fromUrl === 'zh' || fromUrl === 'en' ? fromUrl : (store.get() === 'zh' ? 'zh' : 'en');
+  store.set(lang); // the next page opened inherits this page's language
 
   const textNodes = [];
   const attrs = [];
@@ -436,7 +460,18 @@
   });
   const titleEn = document.title;
 
-  const quizLinks = [...document.querySelectorAll('a[href^="cocktailtest/"]')];
+  // Links to other pages of this site also carry the language in the URL, so it is inherited even where
+  // storage is blocked. English is the site default (no parameter); the quiz is always told explicitly.
+  const pageLinks = [...document.querySelectorAll('a[href]')]
+    .map(a => ({ a, base: a.getAttribute('href') }))
+    .filter(({ base }) => !/^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(base) && !/\.(?:jpe?g|png|gif|webp|svg|pdf)(?:[?#]|$)/i.test(base));
+  const withLang = (href, value) => {
+    const m = href.match(/^([^?#]*)(\?[^#]*)?(#.*)?$/);
+    const q = new URLSearchParams((m[2] || '').slice(1));
+    if (value) q.set('lang', value); else q.delete('lang');
+    const qs = q.toString();
+    return m[1] + (qs ? '?' + qs : '') + (m[3] || '');
+  };
   const btn = document.querySelector('.lang-toggle');
 
   function apply() {
@@ -445,7 +480,10 @@
     textNodes.forEach(t => { t.n.data = zh ? t.zh : t.en; });
     attrs.forEach(t => t.el.setAttribute(t.a, zh ? t.zh : t.en));
     document.title = zh ? (ZH[norm(titleEn)] || titleEn) : titleEn;
-    quizLinks.forEach(a => a.setAttribute('href', zh ? 'cocktailtest/' : 'cocktailtest/?lang=en'));
+    pageLinks.forEach(({ a, base }) => {
+      const quiz = /(?:^|\/)cocktailtest\/?$/.test(base.split(/[?#]/)[0]);
+      a.setAttribute('href', withLang(base, quiz ? lang : (zh ? 'zh' : null)));
+    });
     if (btn) {
       btn.textContent = zh ? 'EN' : '中文';
       btn.setAttribute('lang', zh ? 'en' : 'zh-CN');
