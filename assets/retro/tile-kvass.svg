@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Linen with red cross-stitch diamonds, after Slavic embroidered towels -->
+  <defs>
+    <pattern id="weave" width="2" height="2" patternUnits="userSpaceOnUse">
+      <rect width="2" height="2" fill="#ece2cb"/>
+      <rect width="2" height="1" fill="#e6dbc1"/>
+    </pattern>
+    <g id="x" fill="none" stroke-linecap="square">
+      <path d="M.6 .6 3.4 3.4M3.4 .6 .6 3.4"/>
+    </g>
+    <filter id="grain" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse">
+      <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="12" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 .4  0 0 0 0 .3  0 0 0 0 .2  0 0 0 .07 0"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" fill="url(#weave)"/>
+  <g stroke="#b3261e" stroke-width="1.1">
+    <!-- diamond outline, radius 4 cells of 4px, centred at (32,32) -->
+    <use xlink:href="#x" x="30" y="14"/>
+    <use xlink:href="#x" x="26" y="18"/><use xlink:href="#x" x="34" y="18"/>
+    <use xlink:href="#x" x="22" y="22"/><use xlink:href="#x" x="38" y="22"/>
+    <use xlink:href="#x" x="18" y="26"/><use xlink:href="#x" x="42" y="26"/>
+    <use xlink:href="#x" x="14" y="30"/><use xlink:href="#x" x="46" y="30"/>
+    <use xlink:href="#x" x="18" y="34"/><use xlink:href="#x" x="42" y="34"/>
+    <use xlink:href="#x" x="22" y="38"/><use xlink:href="#x" x="38" y="38"/>
+    <use xlink:href="#x" x="26" y="42"/><use xlink:href="#x" x="34" y="42"/>
+    <use xlink:href="#x" x="30" y="46"/>
+    <!-- centre cross -->
+    <use xlink:href="#x" x="30" y="26"/><use xlink:href="#x" x="26" y="30"/><use xlink:href="#x" x="30" y="30"/><use xlink:href="#x" x="34" y="30"/><use xlink:href="#x" x="30" y="34"/>
+  </g>
+  <g stroke="#2b2b2b" stroke-width="1.1">
+    <use xlink:href="#x" x="-2" y="-2"/><use xlink:href="#x" x="62" y="-2"/><use xlink:href="#x" x="-2" y="62"/><use xlink:href="#x" x="62" y="62"/>
+    <use xlink:href="#x" x="2" y="-2"/><use xlink:href="#x" x="-2" y="2"/><use xlink:href="#x" x="58" y="-2"/><use xlink:href="#x" x="62" y="2"/>
+    <use xlink:href="#x" x="-2" y="58"/><use xlink:href="#x" x="2" y="62"/><use xlink:href="#x" x="62" y="58"/><use xlink:href="#x" x="58" y="62"/>
+  </g>
+  <rect width="64" height="64" filter="url(#grain)"/>
+</svg>

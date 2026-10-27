@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="120" viewBox="0 0 120 120">
+  <!-- Dark rye crumb with rye ears -->
+  <defs>
+    <filter id="crumb" x="0" y="0" width="120" height="120" filterUnits="userSpaceOnUse">
+      <feTurbulence type="fractalNoise" baseFrequency=".35" numOctaves="3" seed="4" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .02  0 0 0 .55 -.12"/>
+    </filter>
+    <g id="ear">
+      <path d="M0 26V-30" stroke="#7a5230" stroke-width="1.4"/>
+      <g fill="#8a6038">
+        <ellipse cx="-3.2" cy="-22" rx="2.4" ry="4.2" transform="rotate(-18 -3.2 -22)"/>
+        <ellipse cx="3.2" cy="-18" rx="2.4" ry="4.2" transform="rotate(18 3.2 -18)"/>
+        <ellipse cx="-3.2" cy="-14" rx="2.4" ry="4.2" transform="rotate(-18 -3.2 -14)"/>
+        <ellipse cx="3.2" cy="-10" rx="2.4" ry="4.2" transform="rotate(18 3.2 -10)"/>
+        <ellipse cx="-3.2" cy="-6" rx="2.4" ry="4.2" transform="rotate(-18 -3.2 -6)"/>
+        <ellipse cx="3.2" cy="-2" rx="2.4" ry="4.2" transform="rotate(18 3.2 -2)"/>
+      </g>
+      <g stroke="#6e4a2a" stroke-width=".7">
+        <path d="M-4.5 -25 -9 -40M4.5 -21 9 -36M-4.5 -17 -10 -31M4.5 -13 10 -27"/>
+      </g>
+    </g>
+  </defs>
+  <rect width="120" height="120" fill="#4a2c17"/>
+  <rect width="120" height="120" filter="url(#crumb)"/>
+  <use xlink:href="#ear" transform="translate(30 66) rotate(-24)"/>
+  <use xlink:href="#ear" transform="translate(92 118) rotate(20)"/>
+  <use xlink:href="#ear" transform="translate(92 -2) rotate(20)"/>
+  <g fill="#5e3a20">
+    <circle cx="76" cy="40" r="1.3"/><circle cx="82" cy="47" r="1"/><circle cx="12" cy="104" r="1.2"/><circle cx="54" cy="16" r="1"/><circle cx="108" cy="72" r="1.1"/>
+  </g>
+</svg>

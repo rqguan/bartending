@@ -53,6 +53,19 @@
     counter.textContent = String(Math.max(n, 1)).padStart(4, '0');
   }
 
+  /* ---------- Countdown to a date (e.g. Halloween), in the visitor's local time ---------- */
+  document.querySelectorAll('[data-countdown]').forEach(el => {
+    const [y, m, d] = el.dataset.countdown.split('-').map(Number);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const days = Math.round((new Date(y, m - 1, d) - today) / 864e5);
+    const odo = n => `<span class="odometer">${String(n).padStart(2, '0')}</span>`;
+    // Each text sits in its own span with data-zh, so the language switch can swap it.
+    if (days > 1) el.innerHTML = `<span data-zh="距离万圣节还有">Halloween in</span> ${odo(days)} <span data-zh="天">days</span>`;
+    else if (days === 1) el.innerHTML = '<span data-zh="明天就是万圣节！">Halloween is tomorrow!</span>';
+    else if (days === 0) el.innerHTML = '<span data-zh="今天就是万圣节！">Halloween is today!</span>';
+    else el.innerHTML = `<span data-zh="${y} 年万圣节限定">Halloween ${y} limited edition</span>`;
+  });
+
   /* ---------- Music box ---------- */
   const Music = (() => {
     const AC = window.AudioContext || window.webkitAudioContext;
@@ -130,10 +143,10 @@
     const ctx = cv.getContext('2d');
     if (!ctx) return null;
     let W = 0, H = 0, raf = 0, last = 0;
-    const on = { bubbles: false, ice: false, fireworks: false, stardust: false };
+    const on = { bubbles: false, ice: false, fireworks: false, stardust: false, leaves: false };
     const parts = [];
-    const count = { b: 0, i: 0 };
-    const acc = { b: 0, i: 0 };
+    const count = { b: 0, i: 0, l: 0 };
+    const acc = { b: 0, i: 0, l: 0 };
     const palette = ['#f2c14e', '#f08a6b', '#7fd1c7', '#fff3c4', '#f59e4c', '#e8a3c9'];
     const pick = () => palette[(Math.random() * palette.length) | 0];
     const small = () => W < 640;
@@ -150,6 +163,8 @@
     const add = p => { parts.push(p); if (p.k in count) count[p.k]++; };
     const bubble = anywhere => add({ k: 'b', x: Math.random() * W, y: anywhere ? Math.random() * H : H + 10, r: 1.6 + Math.random() * 4.4, vy: -(16 + Math.random() * 40), ph: Math.random() * 6.3, w: .5 + Math.random() * 1.3, a: .45 + Math.random() * .35 });
     const ice = anywhere => add({ k: 'i', x: Math.random() * W, y: anywhere ? Math.random() * H : -14, s: 3 + Math.random() * 4.5, vy: 20 + Math.random() * 38, vx: -10 + Math.random() * 20, rot: Math.random() * 6.3, vr: -1 + Math.random() * 2, a: .55 + Math.random() * .35 });
+    const leafColors = ['#e8792b', '#c8461f', '#f2a93b', '#9c4a1a', '#d9612a'];
+    const leaf = anywhere => add({ k: 'l', x: Math.random() * W, y: anywhere ? Math.random() * H : -16, s: 6 + Math.random() * 6, vy: 22 + Math.random() * 26, sway: 18 + Math.random() * 26, ph: Math.random() * 6.3, rot: Math.random() * 6.3, vr: -1.4 + Math.random() * 2.8, c: leafColors[(Math.random() * leafColors.length) | 0], a: .7 + Math.random() * .25 });
     function burst(x, y) {
       const n = small() ? 28 : 44, main = pick();
       for (let i = 0; i < n; i++) {
@@ -180,6 +195,10 @@
         acc.i += dt * (small() ? 3.5 : 7);
         while (acc.i >= 1) { acc.i -= 1; if (count.i < (small() ? 18 : 40)) ice(false); }
       }
+      if (on.leaves) {
+        acc.l += dt * (small() ? 1.6 : 3);
+        while (acc.l >= 1) { acc.l -= 1; if (count.l < (small() ? 10 : 22)) leaf(false); }
+      }
       ctx.clearRect(0, 0, W, H);
       for (let i = parts.length - 1; i >= 0; i--) {
         const p = parts[i];
@@ -206,6 +225,21 @@
           ctx.strokeStyle = 'rgba(235,248,255,.95)'; ctx.lineWidth = 1.3; ctx.stroke();
           ctx.restore();
           dead = p.y > H + 16;
+        } else if (p.k === 'l') {
+          p.y += p.vy * dt; p.ph += dt * 1.6; p.rot += p.vr * dt;
+          const x = p.x + Math.sin(p.ph) * p.sway;
+          ctx.globalAlpha = p.a;
+          ctx.save(); ctx.translate(x, p.y); ctx.rotate(p.rot + Math.sin(p.ph) * .6);
+          ctx.fillStyle = p.c;
+          ctx.beginPath();
+          ctx.moveTo(0, -p.s);
+          ctx.bezierCurveTo(p.s * .9, -p.s * .5, p.s * .7, p.s * .6, 0, p.s);
+          ctx.bezierCurveTo(-p.s * .7, p.s * .6, -p.s * .9, -p.s * .5, 0, -p.s);
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(60,20,5,.55)'; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(0, -p.s * .8); ctx.lineTo(0, p.s * 1.35); ctx.stroke();
+          ctx.restore();
+          dead = p.y > H + 20;
         } else if (p.k === 'f') {
           p.t += dt; p.vy += 150 * dt; p.vx *= .985; p.vy *= .985;
           p.x += p.vx * dt; p.y += p.vy * dt;
@@ -222,7 +256,7 @@
         if (dead) { if (p.k in count) count[p.k]--; parts.splice(i, 1); }
       }
       ctx.globalAlpha = 1;
-      if (parts.length || on.bubbles || on.ice) raf = requestAnimationFrame(tick);
+      if (parts.length || on.bubbles || on.ice || on.leaves) raf = requestAnimationFrame(tick);
       else { raf = 0; ctx.clearRect(0, 0, W, H); }
     }
     function wake() {
@@ -250,7 +284,11 @@
         on[name] = value;
         if (value && name === 'bubbles') for (let i = 0; i < (small() ? 6 : 12); i++) bubble(true);
         if (value && name === 'ice') for (let i = 0; i < (small() ? 6 : 14); i++) ice(true);
-        if (!value && name === 'ice') { for (let i = parts.length - 1; i >= 0; i--) if (parts[i].k === 'i') { parts.splice(i, 1); count.i--; } }
+        if (value && name === 'leaves') for (let i = 0; i < (small() ? 4 : 9); i++) leaf(true);
+        if (!value && (name === 'ice' || name === 'leaves')) {
+          const k = name === 'ice' ? 'i' : 'l';
+          for (let i = parts.length - 1; i >= 0; i--) if (parts[i].k === k) { parts.splice(i, 1); count[k]--; }
+        }
         wake();
       }
     };
@@ -266,7 +304,8 @@
   box.hidden = false;
   document.querySelectorAll('[data-fx-open]').forEach(b => { b.hidden = false; });
 
-  const defaults = { bubbles: !reduceMotion, ice: false, fireworks: false, stardust: !reduceMotion && finePointer };
+  // "leaves" only has a switch on pages that offer it (the Halloween kvass page).
+  const defaults = { bubbles: !reduceMotion, ice: false, fireworks: false, stardust: !reduceMotion && finePointer, leaves: !reduceMotion };
   let prefs = defaults;
   try { prefs = Object.assign({}, defaults, JSON.parse(store.get('enzo-fx') || '{}')); } catch (e) { prefs = defaults; }
 
