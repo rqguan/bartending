@@ -175,7 +175,8 @@ html[lang^="zh"] .prose .lead { font-style: normal; }
 
 /* ---------- Photos: a ridged mat, like a framed snapshot on a homepage ---------- */
 .photo { margin: 0; }
-.photo a { display: block; position: relative; border: 5px ridge var(--photo-frame); background: var(--mat); padding: 5px; box-shadow: 2px 3px 0 rgba(0, 0, 0, .22); }
+/* A photo is either a link to its original (a) or, where the original should not open, a plain frame (.pic). */
+.photo a, .photo .pic { display: block; position: relative; border: 5px ridge var(--photo-frame); background: var(--mat); padding: 5px; box-shadow: 2px 3px 0 rgba(0, 0, 0, .22); }
 .photo img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: rgba(0, 0, 0, .08); }
 .photo figcaption { margin-top: .55em; font-size: .86em; font-style: italic; line-height: 1.45; text-align: center; color: var(--ink-soft); }
 html[lang^="zh"] .photo figcaption { font-style: normal; }
@@ -187,7 +188,7 @@ html[lang^="zh"] .photo figcaption { font-style: normal; }
 /* "Dial-up" loading: each photo arrives in scanline bands, the way a slow modem drew them.
    A cover sits over the photo and shrinks downward in steps; the photo itself is never clipped,
    because a fully clipped <img loading="lazy"> never starts loading in Chromium. */
-.js-dialup [data-dialup] a::after {
+.js-dialup [data-dialup] a::after, .js-dialup [data-dialup] .pic::after {
   content: "";
   position: absolute;
   z-index: 1;
@@ -196,7 +197,7 @@ html[lang^="zh"] .photo figcaption { font-style: normal; }
   transform-origin: 50% 100%;
   pointer-events: none;
 }
-.js-dialup [data-dialup].is-loaded a::after { animation: dialup-cover 1.25s steps(11, end) forwards; }
+.js-dialup [data-dialup].is-loaded a::after, .js-dialup [data-dialup].is-loaded .pic::after { animation: dialup-cover 1.25s steps(11, end) forwards; }
 .js-dialup [data-dialup].is-loaded img { animation: dialup-img 1.4s ease-out; }
 @keyframes dialup-cover { to { transform: scaleY(0); } }
 @keyframes dialup-img { 0% { filter: blur(5px) saturate(.4); } 75% { filter: blur(1.5px) saturate(.75); } 100% { filter: none; } }
@@ -430,10 +431,10 @@ html[lang^="zh"] em { font-style: normal; -webkit-text-emphasis: filled dot; tex
 .notebook-head h2 { margin: 0; }
 .album--taped { gap: 32px 22px; margin-top: 22px; }
 .album--taped .photo { --pad: 8px 8px 10px; --cover: #fff; }
-.album--taped .photo a { border: 0; padding: 8px 8px 10px; background: #fff; box-shadow: 1px 3px 6px rgba(20, 30, 70, .3); transform: rotate(var(--tilt, -1.2deg)); }
-.album--taped .photo:nth-child(2n) a { --tilt: 1.4deg; }
-.album--taped .photo:nth-child(3n) a { --tilt: -.6deg; }
-.album--taped .photo a::before { content: ""; position: absolute; z-index: 1; top: -11px; left: 50%; width: 70px; height: 22px; transform: translateX(-50%) rotate(-4deg); background: rgba(246, 236, 180, .75); box-shadow: 0 1px 2px rgba(0, 0, 0, .12); }
+.album--taped .photo a, .album--taped .photo .pic { border: 0; padding: 8px 8px 10px; background: #fff; box-shadow: 1px 3px 6px rgba(20, 30, 70, .3); transform: rotate(var(--tilt, -1.2deg)); }
+.album--taped .photo:nth-child(2n) :is(a, .pic) { --tilt: 1.4deg; }
+.album--taped .photo:nth-child(3n) :is(a, .pic) { --tilt: -.6deg; }
+.album--taped .photo a::before, .album--taped .photo .pic::before { content: ""; position: absolute; z-index: 1; top: -11px; left: 50%; width: 70px; height: 22px; transform: translateX(-50%) rotate(-4deg); background: rgba(246, 236, 180, .75); box-shadow: 0 1px 2px rgba(0, 0, 0, .12); }
 .album--taped .photo a:hover { transform: rotate(0); }
 
 /* ---------- Collaborations ---------- */
