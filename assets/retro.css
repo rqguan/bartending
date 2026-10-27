@@ -311,10 +311,9 @@ a:hover > .px, .linklike:hover > .px { animation: bob .5s steps(2) infinite; }
 @media (prefers-reduced-motion: reduce) { a:hover > .px, .linklike:hover > .px { animation: none; } }
 
 .portrait-oval { --pad: 0px; --cover: var(--panel); }
-.portrait-oval a { border: 0; padding: 0; background: none; box-shadow: none; aspect-ratio: 1 / 1.06; -webkit-mask-image: radial-gradient(closest-side, #000 83%, transparent 100%); mask-image: radial-gradient(closest-side, #000 83%, transparent 100%); }
+.portrait-oval :is(a, .pic) { border: 0; padding: 0; background: none; box-shadow: none; aspect-ratio: 1 / 1.06; -webkit-mask-image: radial-gradient(closest-side, #000 83%, transparent 100%); mask-image: radial-gradient(closest-side, #000 83%, transparent 100%); }
 .portrait-oval img { height: 100%; aspect-ratio: auto; object-position: 60% 30%; filter: sepia(.55) saturate(.85) contrast(1.06) brightness(1.04); transition: filter .8s; }
-.portrait-oval a:hover img, .portrait-oval a:focus-visible img { filter: none; }
-.portrait-oval.is-loaded a:hover img { filter: none; }
+.portrait-oval :is(a, .pic):hover img, .portrait-oval a:focus-visible img { filter: none; }
 .portrait-oval figcaption { font-size: .82em; margin-top: 0; }
 
 .lobby-row { display: flex; flex-wrap: wrap; justify-content: center; gap: .2em 1.1em; margin: 22px 0 6px; }
@@ -388,7 +387,7 @@ html[lang^="zh"] .notes > div { grid-template-columns: 6em 1fr; }
 }
 .backbar .photo { position: relative; }
 .backbar .photo { --pad: 0px; --cover: #1a0f09; }
-.backbar .photo a { border: 2px solid var(--photo-frame); padding: 0; background: #000; box-shadow: 0 0 18px rgba(255, 190, 100, .12); }
+.backbar .photo :is(a, .pic) { border: 2px solid var(--photo-frame); padding: 0; background: #000; box-shadow: 0 0 18px rgba(255, 190, 100, .12); }
 .backbar .photo::after {
   content: "";
   position: absolute;

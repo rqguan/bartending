@@ -518,7 +518,8 @@
  "Soaked bread in cheesecloth over a sieve, with amber liquid running into a measuring jug.": "泡过的面包放在铺了纱布的滤网上，琥珀色的液体流进量杯。",
  "Want to try it?": "想尝尝吗？",
  "Ask us about tasting, ordering or anything else.": "想试饮、订购，或者有任何问题，都欢迎来问。",
- "Get in touch": "联系我们"
+ "Get in touch": "联系我们",
+ "Photographs are displayed in selected crops.": "页面按版式展示部分裁切画面。"
 };
   const norm = s => s.replace(/\s+/g, ' ').trim();
   const store = { get() { try { return localStorage.getItem('site-lang'); } catch (e) { return null; } },
