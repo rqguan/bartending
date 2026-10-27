@@ -502,7 +502,23 @@
  "Available until": "供应至",
  "Falling leaves": "秋叶飘落",
  "Enzo’s pumpkin kvass, a Halloween limited edition fermented with raw makgeolli and cane sugar.": "Enzo 的南瓜格瓦斯，万圣节限定款，用韩国生米酒和蔗糖发酵。",
- "Pumpkin kvass — Enzo Mixology": "南瓜格瓦斯 — Enzo Mixology"
+ "Pumpkin kvass — Enzo Mixology": "南瓜格瓦斯 — Enzo Mixology",
+ "Two batches, 10/26 and 10/27": "两批格瓦斯，分别标着 10/26 和 10/27",
+ "Two bottles of cloudy golden kvass, taped with the dates 10/26 and 10/27.": "两瓶浑浊的金色格瓦斯，胶带上写着 10/26 和 10/27。",
+ "AI-generated image": "AI 生成的形象图",
+ "AI-generated image: a tall glass of cloudy amber rye kvass beside sliced dark rye bread, in a dim bar with red leather seats.": "AI 生成的形象图：一高杯浑浊的琥珀色黑麦格瓦斯，旁边是切开的黑麦面包，背景是灯光昏暗、配红色皮座椅的酒吧。",
+ "AI-generated image: a glass of hazy orange pumpkin kvass on green marble, beside a cut pumpkin, pumpkin seeds, cinnamon sticks and coffee beans.": "AI 生成的形象图：绿色大理石台面上一杯微浊的橙色南瓜格瓦斯，旁边是切开的南瓜、南瓜子、肉桂棒和咖啡豆。",
+ "Toasted rye bread, steeped and strained": "烤过的黑麦面包，浸泡后过滤",
+ "From bread to bottle": "从面包到瓶子",
+ "Toasting the rye bread": "烤黑麦面包",
+ "Slices of dark rye bread, toasted until charred at the edges, on a metal tray.": "金属烤盘上，边缘烤到焦黑的黑麦面包片。",
+ "Steeping in the pot": "在锅里浸泡",
+ "Toasted rye bread soaking in amber liquid in a steel pot on the stove.": "炉子上的钢锅里，烤过的黑麦面包泡在琥珀色的液体中。",
+ "Straining through cloth": "用纱布过滤",
+ "Soaked bread in cheesecloth over a sieve, with amber liquid running into a measuring jug.": "泡过的面包放在铺了纱布的滤网上，琥珀色的液体流进量杯。",
+ "Want to try it?": "想尝尝吗？",
+ "Ask us about tasting, ordering or anything else.": "想试饮、订购，或者有任何问题，都欢迎来问。",
+ "Get in touch": "联系我们"
 };
   const norm = s => s.replace(/\s+/g, ' ').trim();
   const store = { get() { try { return localStorage.getItem('site-lang'); } catch (e) { return null; } },

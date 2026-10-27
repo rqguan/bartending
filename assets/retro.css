@@ -608,11 +608,20 @@ html[lang^="zh"] .hero-line { font-style: normal; font-family: var(--kai); }
 .label-card .stamp { position: absolute; top: 14px; right: 10px; font-size: .8em; color: #ff6a3d; background: rgba(23, 11, 32, .7); }
 .label-card .new { position: absolute; top: 18px; left: 18px; }
 
+.kvass-intro { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 26px; align-items: center; }
+.album--one { grid-template-columns: 1fr; margin-top: 0; }
+@media (max-width: 680px) { .kvass-intro { grid-template-columns: 1fr; } .album--one { width: min(300px, 100%); justify-self: center; } }
+.kvass-section .album--taped .photo img { aspect-ratio: auto; }
+
 /* Product pages */
 .product-head { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 28px; align-items: center; }
 .product-head .prose h2 { margin-bottom: .5em; }
 @media (max-width: 680px) { .product-head { grid-template-columns: 1fr; } }
 .photo-slot { aspect-ratio: 3 / 4; }
+.product-photo img { aspect-ratio: 761 / 977; }
+.ai-tag { display: inline-block; padding: .1em .55em; font-style: normal; font-size: .92em; color: var(--ink); border: 1px dashed var(--ink-soft); }
+.ask { text-align: center; }
+.ask p { margin: 0 0 .8em; }
 
 /* "Coming soon" sign for content that arrives later */
 .uc {
